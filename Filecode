@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+    private static final String FILE_NAME = "abobafile.txt";
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\n\nМеню:");
+            System.out.println("1. Записати до файлу");
+            System.out.println("2. Прочитати весь вміст файлу");
+            System.out.println("3. Вийти з редактора");
+            System.out.print("Ваш вибір: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    writeToFile(scanner);
+                    break;
+                case 2:
+                    readFile();
+                    break;
+                case 3:
+                    running = false;
+                    System.out.println("Редактор закрито.");
+                    break;
+                default:
+                    System.out.println("Неправильний вибір, спробуйте ще раз.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void writeToFile(Scanner scanner) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            System.out.print("Введіть один рядок для запису: ");
+            String line = scanner.nextLine();
+            writer.write(line);
+            writer.newLine();
+            System.out.println("Текст успішно записано у файл.");
+        } catch (IOException e) {
+            System.err.println("Помилка запису у файл: " + e.getMessage());
+        }
+    }
+
+    private static void readFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line;
+            System.out.println("\n\nВміст файлу:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Файл ще не створено.");
+        } catch (IOException e) {
+            System.err.println("Помилка читання файлу: " + e.getMessage());
+        }
+    }
+}
