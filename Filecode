@@ -38,28 +38,48 @@ public class Main {
     }
 
     private static void writeToFile(Scanner scanner) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(FILE_NAME, true);
             System.out.print("Введіть один рядок для запису: ");
             String line = scanner.nextLine();
-            writer.write(line);
-            writer.newLine();
+            writer.write(line + "\n");
             System.out.println("Текст успішно записано у файл.");
         } catch (IOException e) {
             System.err.println("Помилка запису у файл: " + e.getMessage());
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    System.err.println("Помилка закриття файлу: " + e.getMessage());
+                }
+            }
         }
     }
 
     private static void readFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
+        FileReader reader = null;
+        try {
+            reader = new FileReader(FILE_NAME);
+            int ch;
             System.out.println("\n\nВміст файлу:");
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+            while ((ch = reader.read()) != -1) {
+                System.out.print((char) ch);
             }
+            System.out.println();
         } catch (FileNotFoundException e) {
             System.err.println("Файл ще не створено.");
         } catch (IOException e) {
             System.err.println("Помилка читання файлу: " + e.getMessage());
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    System.err.println("Помилка закриття файлу: " + e.getMessage());
+                }
+            }
         }
     }
 }
