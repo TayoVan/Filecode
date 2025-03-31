@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Main {
-    private static final String FILE_NAME = "abobafile.txt";
+    private static final String FILE_NAME = "abobafile.txt"; 
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -10,9 +10,9 @@ public class Main {
 
         while (running) {
             System.out.println("\n\nМеню:");
-            System.out.println("1. Записати до файлу");
-            System.out.println("2. Прочитати весь вміст файлу");
-            System.out.println("3. Вийти з редактора");
+            System.out.println("1. Записати до файлу ");
+            System.out.println("2. Прочитати весь вміст файлу (що ж ми там наробили?)");
+            System.out.println("3. Вийти з редактора (чому так швидко?)");
             System.out.print("Ваш вибір: ");
 
             int choice = scanner.nextInt();
@@ -27,10 +27,10 @@ public class Main {
                     break;
                 case 3:
                     running = false;
-                    System.out.println("Редактор закрито.");
+                    System.out.println("Редактор закрито. Ви точно не передумаєте?...");
                     break;
                 default:
-                    System.out.println("Неправильний вибір, спробуйте ще раз.");
+                    System.out.println("Неправильний вибір, спробуйте ще раз. Як можна було помилитися в такому простому меню?");
             }
         }
 
@@ -41,7 +41,7 @@ public class Main {
         FileWriter writer = null;
         try {
             writer = new FileWriter(FILE_NAME, true);
-            System.out.println("Введіть текст (натисніть Enter для нового рядка, порожній ввід для завершення):");
+            System.out.println("Введіть текст (натисніть Enter для нового рядка, порожній ввід для завершення). Не пишіть дурниць!");
 
             while (true) {
                 String line = scanner.nextLine();
@@ -50,15 +50,15 @@ public class Main {
                 }
                 writer.write(line + "\n");
             }
-            System.out.println("Текст успішно додано до файлу.");
+            System.out.println("Текст успішно додано до файлу. Місія виконана!");
         } catch (IOException e) {
-            System.err.println("Помилка запису у файл: " + e.getMessage());
+            System.err.println("Помилка запису у файл: " + e.getMessage() + " (боюсь, це все Windows...)");
         } finally {
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e) {
-                    System.err.println("Помилка закриття файлу: " + e.getMessage());
+                    System.err.println("Помилка закриття файлу: " + e.getMessage() + " (мабуть, котик наступив на клавіатуру)");
                 }
             }
         }
@@ -73,17 +73,17 @@ public class Main {
             while ((ch = reader.read()) != -1) {
                 System.out.print((char) ch);
             }
-            System.out.println();
+            System.out.println("\nОсь і всі секрети файлу. Сподіваюся, там нічого компрометуючого!");
         } catch (FileNotFoundException e) {
-            System.err.println("Файл ще не створено.");
+            System.err.println("Файл ще не створено. Як так? Він що, не чарівним чином з'являється?");
         } catch (IOException e) {
-            System.err.println("Помилка читання файлу: " + e.getMessage());
+            System.err.println("Помилка читання файлу: " + e.getMessage() + " (ось що буває, коли відкривають невідомі файли які прописує студент:))");
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    System.err.println("Помилка закриття файлу: " + e.getMessage());
+                    System.err.println("Помилка закриття файлу: " + e.getMessage() + " (хтось залишив файл відкритим, а це не добре!)");
                 }
             }
         }
